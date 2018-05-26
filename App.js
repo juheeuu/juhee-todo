@@ -21,7 +21,7 @@ export default class App extends Component {
     render() {
         const { newToDo,loadedToDos,toDos } = this.state;
         if(!loadedToDos){
-            return <AppLoading/>
+            return <AppLoading/>;
         }
         return(
             <View style={styles.container}>
