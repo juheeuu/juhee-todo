@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 
 import ToDo from './ToDo';
-import {StatusBar,View, StyleSheet,Text, TextInput, Dimensions,Platform,ScrollView} from 'react-native';
+import {StatusBar,View, StyleSheet,Text, TextInput, Dimensions,Platform,ScrollView,AsyncStorage} from 'react-native';
 import { AppLoading } from 'expo';
 import uuidv1 from "uuid/v1";
 
@@ -77,6 +77,7 @@ export default class App extends Component {
                         ...newToDoObject,
                     },
                 };
+                this._saveToDos(newState.toDos);
                 return {...newState};
             })
         }
@@ -90,6 +91,7 @@ export default class App extends Component {
                 ...prevState,
                 ...toDos,
             };
+            this._saveToDos(newState.toDos);
             return {...newState};
         })
     };
@@ -105,6 +107,7 @@ export default class App extends Component {
                     }
                 },
             };
+            this._saveToDos(newState.toDos);
             return {...newState};
         })
     };
@@ -120,6 +123,7 @@ export default class App extends Component {
                     }
                 },
             };
+            this._saveToDos(newState.toDos);
             return {...newState};
         })
     };
@@ -135,9 +139,14 @@ export default class App extends Component {
                     }
                 },
             };
+            this._saveToDos(newState.toDos);
             return {...newState};
         })
-    }
+    };
+    _saveToDos = (newToDos) => {
+        const saveToDos = AsyncStorage.setItem('toDos',JSON.stringify(newToDos));
+
+    };
 }
 
 const styles = StyleSheet.create(
