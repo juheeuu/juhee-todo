@@ -75,7 +75,9 @@ export default class ToDo extends Component{
                                 <Text style={styles.actionText}>✏️</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPressOut={()=> deleteToDo(id)}>
+                        <TouchableOpacity onPressOut={event=>{
+                            event.stopPropagation();
+                            deleteToDo(id);}}>
                             <View style={styles.actionContainer}>
                                 <Text style={styles.actionText}>❌</Text>
                             </View>
@@ -87,7 +89,8 @@ export default class ToDo extends Component{
 
         )
     }
-    _toggleComplete = () => {
+    _toggleComplete = (event) => {
+        event.stopPropagation();
        const { isCompleted, uncompleteToDo, completeToDo, id } = this.props;
        if(isCompleted){
            uncompleteToDo(id)
@@ -95,12 +98,12 @@ export default class ToDo extends Component{
            completeToDo(id)
        }
     };
-    _startEditing = () => {
+    _startEditing = (event) => {
         this.setState({
             isEditing: true,
         });
     };
-    _finishEditing = () => {
+    _finishEditing = (event) => {
         const{ toDoValue} = this.state;
         const {id, updateToDo} = this.props;
         updateToDo(id, toDoValue);
